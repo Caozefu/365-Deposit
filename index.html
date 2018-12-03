@@ -44,12 +44,22 @@
     </div>
 
     <script>
+        if (typeof localStorage === 'object') {
+            try {
+                localStorage.setItem('localStorage', 1);
+                localStorage.removeItem('localStorage');
+            } catch (e) {
+                Storage.prototype._setItem = Storage.prototype.setItem;
+                Storage.prototype.setItem = function () { };
+                alert('您处于无痕浏览，无法为您保存');
+            }
+        }
         let storage = localStorage;
         if (!storage.moneydata) {
             let data = {
                 'data': [],
             };
-            for(let j = 1; j <= 365; j ++) {
+            for (let j = 1; j <= 365; j++) {
                 data.data.push({
                     'count': j,
                     'checked': false
@@ -97,7 +107,7 @@
                 }
             }
         })
-        document.getElementById('reset').onclick = function() {
+        document.getElementById('reset').onclick = function () {
             localStorage.removeItem('moneydata');
             window.location.reload();
         }
