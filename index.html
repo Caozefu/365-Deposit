@@ -45,7 +45,7 @@
 
     <script>
         let storage = localStorage;
-        if (!storage.moneyData) {
+        if (!storage.moneydata) {
             let data = {
                 'data': [],
             };
@@ -55,7 +55,7 @@
                     'checked': false
                 })
             }
-            storage.setItem('moneyData', JSON.stringify(data));
+            storage.setItem('moneydata', JSON.stringify(data));
         }
 
         let flag = 0;
@@ -63,13 +63,13 @@
 
         table.appendChild(document.createElement('tr'));
 
-        for (let i = 0; i < JSON.parse(storage.moneyData).data.length; i++) {
+        for (let i = 0; i < JSON.parse(storage.moneydata).data.length; i++) {
             let targetTr = table.querySelectorAll('tr')[flag];
             if (targetTr.children.length < 10) {
                 let td = document.createElement('td');
-                td.innerText = JSON.parse(storage.moneyData).data[i].count;
+                td.innerText = JSON.parse(storage.moneydata).data[i].count;
                 targetTr.appendChild(td);
-                td.className = JSON.parse(storage.moneyData).data[i].checked ? 'active' : '';
+                td.className = JSON.parse(storage.moneydata).data[i].checked ? 'active' : '';
             } else {
                 table.appendChild(document.createElement('tr'));
                 i--;
@@ -86,19 +86,19 @@
             if (target.nodeName === 'TD') {
                 if (!target.className) {
                     target.className = 'active';
-                    newData = JSON.parse(localStorage.moneyData);
+                    newData = JSON.parse(localStorage.moneydata);
                     newData.data[parseInt(e.path[0].innerText) - 1].checked = true;
-                    localStorage.moneyData = JSON.stringify(newData);
+                    localStorage.moneydata = JSON.stringify(newData);
                 } else {
                     target.className = '';
-                    newData = JSON.parse(localStorage.moneyData);
+                    newData = JSON.parse(localStorage.moneydata);
                     newData.data[parseInt(e.path[0].innerText) - 1].checked = false;
-                    localStorage.moneyData = JSON.stringify(newData);
+                    localStorage.moneydata = JSON.stringify(newData);
                 }
             }
         })
         document.getElementById('reset').onclick = function() {
-            localStorage.removeItem('moneyData');
+            localStorage.removeItem('moneydata');
             window.location.reload();
         }
     </script>
